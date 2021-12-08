@@ -1,0 +1,57 @@
+{% extends 'products/base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% block content %}
+
+<!--	<div class="collection_text">Women</div>-->
+
+
+    <div class="layout_padding gallery_section">
+    	<div class="container">
+			<div class="row">
+				{% for product in product_list %}
+					<div class="col-sm-4">
+						<a href="{% url 'product-view' product.id %}">
+							<div class="best_shoes">
+								<p class="brand_name">{{ product.brand }}</p>
+								<p class="best_text">{{ product.name }}</p>
+								<div class="shoes_icon"><img src={{  product.images | first }}></div>
+
+								<div class="right_part">
+									<div class="shoes_price">$ <span style="color: #ff4e5b;">{{ product.price_usd }}</span></div>
+								</div>
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="pagination-block">
+
+				{% if product_list.has_other_pages %}
+					<ul class="pagination">
+					{% if product_list.has_previous %}
+						<li><a href="?page={{ product_list.previous_page_number }}&q={{ request.GET.q }}">&laquo;</a></li>
+					{% else %}
+						<li class="disabled-symbol-page"><span>&laquo;</span></li>
+					{% endif %}
+					{% for i in product_list.paginator.page_range %}
+						{% if product_list.number == i %}
+							<li class="active-page"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+						{% elif i > product_list.number|add:'-5' and i < product_list.number|add:'5' %}
+							<li><a href="?page={{ i }}&q={{ request.GET.q }}">{{ i }}</a></li>
+						{% endif %}
+					{% endfor %}
+
+					{% if product_list.has_next %}
+						<li><a href="?page={{ product_list.next_page_number }}&q={{ request.GET.q }}">&raquo;</a></li>
+					{% else %}
+						<li class="disabled"><span>&raquo;</span></li>
+					{% endif %}
+						</ul>
+				{% endif %}
+			</div>
+
+		</div>
+	</div>
+
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends 'products/base.html' %}
+{% block title %}Search Results{% endblock title %}
+{% block content %}
+
+<!--	<div class="collection_text">Women</div>-->
+
+
+    <div class="layout_padding gallery_section">
+    	<class="container">
+			<div class="row">
+				{% if product_list %}
+					{% for product in product_list %}
+						<div class="col-sm-4">
+							<a href="{% url 'product-view' product.id %}">
+								<div class="best_shoes">
+									<p class="brand_name">{{ product.brand }}</p>
+									<p class="best_text">{{ product.name }}</p>
+									<div class="shoes_icon"><img src={{  product.images | first }}></div>
+									<div class="right_part">
+										<div class="shoes_price">$ <span style="color: #ff4e5b;">{{ product.price_usd }}</span></div>
+									</div>
+								</div>
+							</a>
+						</div>
+					{% endfor %}
+				{% else %}
+
+					<p class="best_text">We couldn't find any results. Please try a different search.</p>
+
+				{% endif %}
+			</div>
+
+		<div class="pagination-block">
+
+				{% if page_obj.has_other_pages %}
+					<ul class="pagination">
+					{% if page_obj.has_previous %}
+						<li><a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}">&laquo;</a></li>
+					{% else %}
+						<li class="disabled-symbol-page"><span>&laquo;</span></li>
+					{% endif %}
+					{% for i in page_obj.paginator.page_range %}
+						{% if page_obj.number == i %}
+							<li class="active-page"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+						{% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+							<li><a href="?page={{ i }}&q={{ request.GET.q }}">{{ i }}</a></li>
+						{% endif %}
+					{% endfor %}
+
+					{% if page_obj.has_next %}
+						<li><a href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">&raquo;</a></li>
+					{% else %}
+						<li class="disabled"><span>&raquo;</span></li>
+					{% endif %}
+						</ul>
+				{% endif %}
+		</div>
+
+
+
+	</div>
+
+{% endblock content %}
