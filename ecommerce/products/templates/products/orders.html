@@ -1,0 +1,31 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block title %}My Bag{% endblock title %}
+
+{% block content %}
+
+    <div class="collection_section layout_padding">
+        <div class="container">
+    		<h1 class="new_text"><strong>My Bag</strong></h1>
+        </div>
+    	<div class="container">
+    		<div class="center-column">
+
+                {% for order_item in order_item_list %}
+                    <div class="item-row">
+                        <h5><b>Product Name: </b></span>{{ order_item.product.name }}</h5>
+                        <h5><b>Quantity: </b>{{ order_item.quantity }}</h5>
+                        <h5><b>Price Total: </b>$ {{ order_item.price_subtotal }}</h5>
+                        <a class="btn-custom-delete" href="{% url 'order-item-delete' order_item.id %}">Delete</a>
+                    </div>
+                {% endfor %}
+
+                <div class="item-row">
+                    <h2><b>Total price: $ <span style="color: #ff4e5b;">{{ total_price }}</span></b></h2>
+                    <a class="btn-custom-delete" href="#">Proceed to Checkout</a>
+                </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -22,17 +22,23 @@
 					<div class="product_details">
 						<p class="brand_name">Product Information</p>
 						<p class="best_text">{{ product.description }}</p>
-						<br>
-						<br>
-						{% csrf_token %}
-						{{form}}
-						 <div class="shoes_price">Total price: $ <span style="color: #ff4e5b;">{{ product.price_usd}}</span></div>
-						<br>
-						<br>
-						<a href="https://www.google.ru/">
-							<button class="add_to_bag_bt">ADD TO BAG</button>
-						</a>
-						<br>
+
+<!--						<form method="POST">-->
+<!--							{% csrf_token %}-->
+<!--							{{form}}-->
+<!--							<input name="test" type="number" value="1" min="1" max="{{ product.quantity }}" >-->
+<!--							 <div class="shoes_price">Total price: $ <span style="color: #ff4e5b;">{{ product.price_usd }}</span></div>-->
+<!--								{{form.field.value}}-->
+<!--							<br>-->
+<!--							<br>-->
+
+<!--								<a class="add_to_bag_bt" href="{% url 'order-item' product.id %}">ADD TO BAG</a>-->
+<!--							<br>-->
+<!--						</form>-->
+						<form  action="{% url 'order-item' product.id %}" method="GET">
+								<input name="item_q" type="number" value="1" min="1" max="{{ product.quantity }}">
+								<button class="add_to_bag_bt" >ADD TO BAG</button>
+						</form>
 					</div>
 				</div>
 			</div>

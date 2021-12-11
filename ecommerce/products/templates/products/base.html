@@ -58,8 +58,8 @@
 
 <!--                                    </form>-->
 
-                                   <a class="nav-item nav-link last" href="contact.html"><img src= "{% static 'products/images/shop_icon.png' %}"></a>
-                                   <a class="nav-item nav-link last" href="contact.html"><img src= "{% static 'products/images/profile_icon.png' %}" width="25" height="25"></a>
+                                   <a class="nav-item nav-link last" href="{% url 'orders' %}"><img src= "{% static 'products/images/shop_icon.png' %}"></a>
+                                   <a class="nav-item nav-link last" href="#"><img src= "{% static 'products/images/profile_icon.png' %}" width="25" height="25"></a>
 
                                 </div>
 
@@ -75,18 +75,17 @@
         </div>
         <div class="collection_text_search">
                 <div class="container">
-            <div class="navbar-nav">
-                <form class="search-form" action="{% url 'search-results' %}" method="GET">
-                    <input name="q" type="text" placeholder="Search...">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-
-            </div>
+                    <div class="navbar-nav">
+                        <form class="search-form" action="{% url 'search-results' %}" method="GET">
+                            <input name="q" type="text" placeholder="Search...">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
                 </div>
         </div>
 	<!-- header section end -->
-            {% block content %}
-            {% endblock content %}
+        {% block content %}
+        {% endblock content %}
 	</body>
 
 </html>

@@ -6,7 +6,7 @@
 
 
     <div class="layout_padding gallery_section">
-    	<class="container">
+    	<div class="container">
 			<div class="row">
 				{% if product_list %}
 					{% for product in product_list %}
@@ -24,9 +24,7 @@
 						</div>
 					{% endfor %}
 				{% else %}
-
 					<p class="best_text">We couldn't find any results. Please try a different search.</p>
-
 				{% endif %}
 			</div>
 
@@ -54,10 +52,8 @@
 					{% endif %}
 						</ul>
 				{% endif %}
+			</div>
 		</div>
-
-
-
 	</div>
 
 {% endblock content %}

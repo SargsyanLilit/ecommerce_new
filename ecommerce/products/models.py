@@ -79,6 +79,7 @@ class Product(models.Model):
     gender = models.CharField(max_length=10)
     quantity = models.IntegerField()
     price_usd = models.FloatField()
+    new_arrivals = models.BooleanField()
     # for price_usd and quantity , this SQL codes in db
     # ALTER TABLE products_product
     # ADD quantity AS (CASE
@@ -87,6 +88,18 @@ class Product(models.Model):
     #                  END);
     # ALTER TABLE products_product
     # ADD price_usd as (round((price*0.013), 2));
+    # UPDATE
+    # products_product
+    # SET
+    # quantity = 50
+    # WHERE
+    # in_stock = "True";
+    # UPDATE
+    # products_product
+    # SET
+    # price_usd = (round((price * 0.013), 2))
+    # WHERE
+    # in_stock = "True";
 
 
     @classmethod
