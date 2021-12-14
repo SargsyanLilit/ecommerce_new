@@ -22,9 +22,7 @@
 								<p class="brand_name">{{ product.brand }}</p>
 								<p class="best_text">{{ product.name }}</p>
 								<div class="shoes_icon"><img src={{  product.images | first }}></div>
-								<div class="right_part">
 									<div class="shoes_price">$ <span style="color: #ff4e5b;">{{ product.price_usd }}</span></div>
-								</div>
 							</div>
 						</a>
 					</div>
@@ -55,7 +53,7 @@
 						{% if product_list.has_next %}
 							<li><a href="?page={{ product_list.next_page_number }}&q={{ request.GET.q }}">&raquo;</a></li>
 						{% else %}
-							<li class="disabled"><span>&raquo;</span></li>
+							<li class="disabled-symbol-page"><span>&raquo;</span></li>
 						{% endif %}
 					</ul>
 				{% endif %}

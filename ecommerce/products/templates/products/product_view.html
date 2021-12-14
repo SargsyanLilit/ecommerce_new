@@ -1,20 +1,44 @@
 {% extends 'products/base.html' %}
+{% load static %}
 {% block title %}Product details{% endblock title %}
 {% block content %}
 
+<script src="{% static 'products/js/slider.js' %}"></script>
 <!--	<div class="collection_text">Women</div>-->
 
     <div class="layout_padding gallery_section">
     	<div class="container">
 			<div class="row">
-				<div class="col-sm-4">
-					<div class="best_shoes">
+				<div class="col-sm-6">
+					<div class="best_shoes_slides">
 						<p class="brand_name">{{ product.brand }}</p>
 						<p class="best_text">{{ product.name }}</p>
-						<div class="shoes_icon"><img src={{  product.images | first }}></div>
-						<div class="right_part">
-							<div class="shoes_price">$ <span style="color: #ff4e5b;">{{ product.price_usd }}</span></div>
+<!--						<div class="shoes_icon"><img src={{  product.images | first }}></div>-->
+
+
+
+						<div class="container_slide">
+							{% for image in product.images %}
+						    	<div class="mySlides" {% if forloop.counter == 1 %} style="display:block;" {% endif %}>
+									<img src="{{ image }}" style="width:100%">
+						    	</div>
+							{% endfor %}
+
+							<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+							<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+						  <!-- Thumbnail images -->
+					  	    <div class="slides-row">
+								{% for image in product.images %}
+									<div class="column">
+										<img class="demo cursor" src="{{ image }}" style="width:100%" onclick="currentSlide({{ forloop.counter }})" alt="Cinque Terre">
+									</div>
+								{% endfor %}
+							</div>
 						</div>
+							<!-- Container for the image gallery -->
+
+
 					</div>
 				</div>
 
@@ -22,6 +46,8 @@
 					<div class="product_details">
 						<p class="brand_name">Product Information</p>
 						<p class="best_text">{{ product.description }}</p>
+
+						<div class="best_text">Price of the product: $ <span style="color: #ff4e5b;">{{ product.price_usd }}</span></div>
 
 <!--						<form method="POST">-->
 <!--							{% csrf_token %}-->
@@ -35,8 +61,10 @@
 <!--								<a class="add_to_bag_bt" href="{% url 'order-item' product.id %}">ADD TO BAG</a>-->
 <!--							<br>-->
 <!--						</form>-->
-						<form  action="{% url 'order-item' product.id %}" method="GET">
+						<form class="product-view" action="{% url 'order-item' product.id %}" method="GET">
+								<label>Quantity: </label>
 								<input name="item_q" type="number" value="1" min="1" max="{{ product.quantity }}">
+								<br>
 								<button class="add_to_bag_bt" >ADD TO BAG</button>
 						</form>
 					</div>
@@ -44,5 +72,9 @@
 			</div>
 		</div>
     </div>
+
+
+
+
 
 {% endblock content %}
