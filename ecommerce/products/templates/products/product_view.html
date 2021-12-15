@@ -49,18 +49,6 @@
 
 						<div class="best_text">Price of the product: $ <span style="color: #ff4e5b;">{{ product.price_usd }}</span></div>
 
-<!--						<form method="POST">-->
-<!--							{% csrf_token %}-->
-<!--							{{form}}-->
-<!--							<input name="test" type="number" value="1" min="1" max="{{ product.quantity }}" >-->
-<!--							 <div class="shoes_price">Total price: $ <span style="color: #ff4e5b;">{{ product.price_usd }}</span></div>-->
-<!--								{{form.field.value}}-->
-<!--							<br>-->
-<!--							<br>-->
-
-<!--								<a class="add_to_bag_bt" href="{% url 'order-item' product.id %}">ADD TO BAG</a>-->
-<!--							<br>-->
-<!--						</form>-->
 						<form class="product-view" action="{% url 'order-item' product.id %}" method="GET">
 								<label>Quantity: </label>
 								<input name="item_q" type="number" value="1" min="1" max="{{ product.quantity }}">
@@ -69,6 +57,40 @@
 						</form>
 					</div>
 				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="product_details">
+						<p class="brand_name">Reviews</p>
+						<br>
+						<br>
+
+						<section id="app">
+							<div class="container-comment">
+							  <div class="row-comment">
+
+								  <div class="comment">
+								<p v-for="items in item" v-text="items">nxsjxnsjnxjs</p>
+								  </div><!--End Comment-->
+
+								  <div class="comment">
+								<p v-for="items in item" v-text="items">nxsjxnsjnxjs</p>
+								  </div><!--End Comment-->
+
+								  </div><!-- End row -->
+							  <div class="row-comment">
+
+							  <textarea type="text" class="input" placeholder="Write a reiew" v-model="newItem" @keyup.enter="addItem()"></textarea>
+								  <button v-on:click="addItem()" class='primaryContained' type="submit">Add Review</button>
+
+							  </div><!--End Row -->
+							</div><!--End Container -->
+						  </section><!-- end App -->
+
+					</div>
+				</div>
+
 			</div>
 		</div>
     </div>

@@ -16,6 +16,8 @@ def orders_list(request):
         request.session['order_id'] = order.id
         id_ = order.id
 
+    #TODO user id connect to order ID, with having option to view orders without logging in
+
     order_items = OrderItem.objects.filter(order_id=id_)
     order_prices = order_items.values_list('price_subtotal', flat=True)
     total_price = round(sum(order_prices), 2)

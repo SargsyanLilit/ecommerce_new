@@ -121,6 +121,14 @@ class Product(models.Model):
 
 # Uncomment, when data upload from json to db is needed, then runserver
 # Product.from_json("products/static/products/json/dataset.json")
-
-
+#
+# class Reviews(models.Model):
+    # user = models.CharField(max_length=50, null=True, blank=True) # TODO connect to user model, remove null and blank
+    # product = models.ForeignKey(Product, related_name='review_product', on_delete=models.CASCADE)
+    # review = models.TextField(max_length=500, null=True, blank=True)
+    # #created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    #
+    #
+    #
+    #
 
