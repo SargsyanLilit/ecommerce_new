@@ -4,29 +4,41 @@
 {% block title %}Profile{% endblock title %}
 
 {% block content %}
+
+
     <div class="collection_section layout_padding">
+
     <div class="row1">
     <div class="col-md-8">
 
     <div class="content-section">
       <div class="media">
-        <img class="rounded-circle account-img" src="{% static 'products/images/profile_image.png' %}">
+        <img class="rounded-circle account-img" src="{{ profile.image.url }}" width="300" height="400">
           <h2></h2>
         <div class="media-body">
           <h2 class="account-heading">You are logged in as {{ user.username }}</h2>
           <p class="text-secondary">email: {{ user.email }}</p>
           <p class="text-secondary">age: {{ profile.age }}</p>
-          <p class="text-secondary">gender: {{ user.gender }}</p>
-          <p class="text-secondary">address: {{ user.address }}</p>
+          <p class="text-secondary">gender: {{ profile.get_gender_display }}</p>
+          <p class="text-secondary">address: {{ profile.address }}</p>
         </div>
       </div>
       <!-- FORM HERE -->
+
+
     </div>
 
 
             </div>
     </div>
         </div>
+
+<div class="collection_section layout_padding">
+            <form class="product-view" action="{% url 'update' profile.user_id %}" method="GET">
+                <button class="add_to_bag_bt" >Update Personal Information</button>
+            </form>
+</div>
+
 
             <div class="collection_section layout_padding">
     	<div class="container">

@@ -19,3 +19,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+    # def get_user_gender(self):
+    #     return f"{self.gender}"
