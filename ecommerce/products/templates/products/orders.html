@@ -24,8 +24,10 @@
                 {% endfor %}
 
                 <div class="item-row-checkout">
-                    <h2><b>Total price: $ <span style="color: #ff4e5b;">{{ total_price }}</span></b></h2>
-                    <a class="btn-custom-delete" href="#">Proceed to Checkout</a>
+                    <h2 ><b>Total price: $ <span style="color: #ff4e5b;">{{ total_price }}</span></b></h2>
+                     {% if order_item_list.0.order_id %}
+                    <a class="btn-custom-delete" href="{% url 'checkout' order_item_list.0.order_id %}">Proceed to Checkout</a>
+                    {% endif %}
                 </div>
         </div>
     </div>

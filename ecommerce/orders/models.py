@@ -9,6 +9,7 @@ class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_delivered = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
     price_total = models.FloatField(default=0, null=True, blank=True)
 
 

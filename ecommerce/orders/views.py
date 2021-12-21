@@ -11,12 +11,14 @@ def orders_list(request):
 
     try:
         id_ = request.session['order_id']
+        order = Orders.objects.get(id=id_)
+        if order.is_paid == 1:
+            raise Exception
     except:
         order = Orders.objects.create()
         request.session['order_id'] = order.id
         id_ = order.id
 
-    #TODO user id connect to order ID, with having option to view orders without logging in
 
     order_items = OrderItem.objects.filter(order_id=id_)
     order_prices = order_items.values_list('price_subtotal', flat=True)
@@ -55,7 +57,8 @@ def create_order_item(request, product_id):
     #     order = Orders.objects.create()
     #print(quantity)
     order_item = OrderItem.objects.create(product_id=product.id, quantity=item_quantity, price_subtotal=price_total, order_id=id_)
-
+    product.quantity -= int(item_quantity)
+    product.save()
     context = {
         "product": product,
         "order_item": order_item,

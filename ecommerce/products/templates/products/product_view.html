@@ -67,22 +67,36 @@
 						<br>
 
 						<section id="app">
+
 							<div class="container-comment">
+							<form action="{% url 'add-review' product.id %}" method="GET">
+									{% csrf_token %}
 							  <div class="row-comment">
-
+								  {% if reviews%}
+									{% for review in reviews %}
 								  <div class="comment">
-								<p v-for="items in item" v-text="items">nxsjxnsjnxjs</p>
-								  </div><!--End Comment-->
 
-								  <div class="comment">
-								<p v-for="items in item" v-text="items">nxsjxnsjnxjs</p>
+									  <h5 style="text-align: right;padding: 10px;">{{ review.created_at }}</h5>
+									  <h5 style="color: #ff4e5b;padding: 10px;">{{ user.username }}</h5>
+								<p v-for="items in item" v-text="items">{{ review.review_text }}</p>
 								  </div><!--End Comment-->
+								  {% endfor %}
+								  {% endif %}
+
+
 
 								  </div><!-- End row -->
 							  <div class="row-comment">
 
-							  <textarea type="text" class="input" placeholder="Write a reiew" v-model="newItem" @keyup.enter="addItem()"></textarea>
-								  <button v-on:click="addItem()" class='primaryContained' type="submit">Add Review</button>
+
+
+<!--								  <textarea name='new_review' type="text" class="input" placeholder="Write a review" v-model="newItem" @keyup.enter="addItem()"></textarea>-->
+								  <input style="width:100%;" name='new_review' type="text" placeholder="Write a review"></input>
+								  <br>
+								  <button class='primaryContained' type="submit">Add Review</button>
+
+						</form>
+
 
 							  </div><!--End Row -->
 							</div><!--End Container -->

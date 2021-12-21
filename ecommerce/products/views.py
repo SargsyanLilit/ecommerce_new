@@ -1,8 +1,12 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic import ListView
 from django.shortcuts import render, HttpResponse, redirect
-from products.models import Products, Product
-from products.forms import ProductQuantityForm, QuantityForm
+
+from orders.models import Orders, OrderItem
+from products.models import Products, Product, ProductReviews
+from products.forms import ProductQuantityForm, QuantityForm, AddReview
 from django.db.models import Q
 
 
@@ -105,7 +109,15 @@ def product_view(request, product_id):
     if request.method == "POST":
         product_form = QuantityForm(request.POST)
 
-    return render(request, "products/product_view.html", context={'product': product, 'form': product_form})
+    reviews = ProductReviews.objects.filter(product_id=product_id).order_by('-created_at')
+
+    context = {
+        'product': product,
+        'form': product_form,
+        'reviews': reviews,
+    }
+
+    return render(request, "products/product_view.html", context=context)
 
 
 class SearchProductsView(ListView):
@@ -122,4 +134,56 @@ class SearchProductsView(ListView):
             product.images = product.images.split(' ~')
 
         return product_list
+
+@login_required(login_url='login')
+def add_review(request, product_id):
+    review_text = request.GET.get('new_review')
+    print("SSSSSSSSSSSSSSSSSSSSSSSSSSSS",review_text)
+    try:
+        product = Product.objects.get(id=product_id)
+    except Product.DoesNotExist:
+        return redirect('home')
+    
+    try:
+        user = User.objects.get(id=request.user.id)
+    except User.DoesNotExist:
+        return redirect('home')
+    review_form = AddReview()
+    review = ProductReviews.objects.create(product_id=product.id, user_id=user.id, review_text=review_text)
+    context = {
+        "review": review,
+    }
+    return redirect("product-view", product_id)
+
+
+@login_required(login_url='login')
+def checkout(request, order_id):
+    try:
+        order = Orders.objects.get(id=order_id)
+    except Orders.DoesNotExist:
+        return redirect('orders')
+
+    try:
+        user = User.objects.get(id=request.user.id)
+    except User.DoesNotExist:
+        return redirect('login')
+
+    order_items = OrderItem.objects.filter(order_id=order_id)
+    order_prices = order_items.values_list('price_subtotal', flat=True)
+    total_price = round(sum(order_prices), 2)
+
+    order.is_paid = 1
+    order.user_id = user.id
+    order.price_total = total_price
+    order.save()
+
+    # request.session.delete()
+    return redirect("profile")
+
+
+
+
+
+
+
 

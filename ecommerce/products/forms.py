@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from products.models import Product
+from products.models import Product, ProductReviews
 
 
 class ProductQuantityForm(forms.ModelForm):
@@ -11,3 +11,9 @@ class ProductQuantityForm(forms.ModelForm):
 
 class QuantityForm(forms.Form):
     quantity = forms.IntegerField(min_value=1)
+
+
+class AddReview(forms.ModelForm):
+    class Meta:
+        model = ProductReviews
+        fields = ['review_text']

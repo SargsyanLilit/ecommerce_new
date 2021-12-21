@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 import csv
 import json
@@ -123,12 +124,19 @@ class Product(models.Model):
 # Product.from_json("products/static/products/json/dataset.json")
 #
 # class Reviews(models.Model):
-    # user = models.CharField(max_length=50, null=True, blank=True) # TODO connect to user model, remove null and blank
-    # product = models.ForeignKey(Product, related_name='review_product', on_delete=models.CASCADE)
-    # review = models.TextField(max_length=500, null=True, blank=True)
-    # #created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    #
-    #
-    #
-    #
+#     user = models.CharField(max_length=50, null=True, blank=True)
+#     product = models.ForeignKey(Product, related_name='review_product', on_delete=models.CASCADE)
+#     review = models.TextField(max_length=500, null=True, blank=True)
+#     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+#     #
+#     #
+#     #
+#     #
+#
+
+class ProductReviews(models.Model):
+    product = models.ForeignKey(Product, related_name='review_product', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='review_user', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    review_text = models.TextField(max_length=1000)
 
